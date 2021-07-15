@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+    <meta name="author" content="LNCM Rodin">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <link rel="stylesheet" type="text/css" href="/ui/theme/jquery-ui.css">
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    <link rel="shortcut icon"  href="/favicon.ico">
+    <title>{% host %}</title>
+    <script type="text/javascript" src="/js/err.js"></script>
+    {%-write <script type="text/javascript" src="/js/write.js"></script> %}
+    {% js_share %}
+</head>
+<body>
+<div class="header">
+    <div class="logo"><a class="logo-icon" href="/index.php" title="ЛЕННИИХИММАШ"></a></div>
+    <div class="menu">
+        <div class="info">СИСТЕМА ОБМЕНА ФАЙЛАМИ С ВНЕШНИМИ КОНТРАГЕНТАМИ<br><span>Срок действия аккаунта: {% date %}</span></div>
+        <a id="logout" href="/login.php?logout">Выход</a>
+    </div>
+</div>
+<div id="content-wrapper">
+    <div id="content">
+        <div id="screen">
+            <div id="controls">
+{% crumb %}
+            </div>
+{% cat %}
+        </div>
+    </div>
+</div>
+<form name="get-zip" id="get-zip" action="/get.php" method="post" style="display:none;">
+    <p><input type="hidden" name="data"></p>
+</form>
+<div id="err">
+    <div id="err-content" class="ui-corner-all">
+        <h4>Ошибки:<a href="#"><span class="ui-icon ui-icon-close"></span>Закрыть</a></h4>
+    </div>
+</div>
+<div id="msg"></div>
+</body>
+</html>

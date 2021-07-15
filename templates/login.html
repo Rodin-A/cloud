@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta name="Author" content="LNCM Rodin" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="ui/theme/jquery-ui.css" />
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="ui/jquery-ui.js"></script>
+    <link rel="shortcut icon"  href="/favicon.ico" />
+    <title>Login</title>
+    <script type="text/javascript">
+        function ShowLogin() {
+            $( "#relogin" ).hide();
+            $( "#dialog-login" ).dialog( "open" );
+        }
+        $(document).ready(function() {
+            $( "#dialog-login" ).dialog({
+                width: 230,
+                autoOpen: false,
+                resizable: false,
+                draggable: false,
+                hide: {
+                    effect: "blind",
+                    duration: 500
+                },
+                buttons: {
+                    "Вход": function() { $( "#login-form" ).submit(); }
+                },
+                close: function() {
+                    $( "#relogin" ).show();
+                }
+            });
+
+            $( "input:submit" ).button();
+            $("#password, #login").bind('keypress', function(event) {
+                if (event.keyCode === 13)
+                    $( "#login-form" ).submit();
+            });
+            if ($("#login").val().length > 0)
+                $("#password").focus();
+            ShowLogin();
+            setTimeout(function() {
+                $( "#wrong" ).fadeOut(900);
+            }, 3000 );
+        });
+    </script>
+</head>
+<body>
+{%-in_ban <h3 style="text-align:center;padding:30px;">Превышено максимальное количесво попыток входа. Попробуйте войти через 1 час</h3> %}
+<noscript>
+    <div id="nojavascript">
+        Это приложение требует включённый JavaScript для корректной работы. Пожалуйста, <a href="http://enable-javascript.com/ru/" target="_blank">включите JavaScript</a> и перезагрузите интерфейс.
+    </div>
+</noscript>
+<div id="relogin"><h1>{% host %}</h1><br /><br /><a href="#" onclick="ShowLogin();">Войти</a></div>
+<div style="display: none;" class="dialog" id="dialog-login" title="Авторизация">
+    <form id="login-form" action="login.php{% QS %}" method="post">
+        <fieldset>
+            <div class="controls">
+                        <span class="add-on" title="Login">
+                            <span class="ui-icon ui-icon-person"></span>
+                        </span>
+                <input type="text" maxlength="25" name="login" id="login" value="{% login %}"/>
+            </div>
+            <div class="controls">
+                        <span class="add-on" title="Password">
+                            <span class="ui-icon ui-icon-key"></span>
+                        </span>
+                <input type="password" maxlength="25" name="password" id="password" />
+            </div>
+            <div id="wrong" {% wrong %} class="ui-state-error ui-corner-all">Неверный логин или пароль</div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
